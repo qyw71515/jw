@@ -1,7 +1,3 @@
-/** 
- * Copyright: Copyright (c)2015
- * Company: 江西航天信息有限公司(jxhtxx.com) 
- */
 package com.tl.utils;
 
 import java.io.BufferedReader;
