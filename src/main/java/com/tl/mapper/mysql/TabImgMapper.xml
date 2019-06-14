@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tl.dao.ITabNewsDAO">
+
+
+
+	<select id="getNewsListByPage" resultType="Tab_news"
+		parameterType="Map">
+		select * from tab_news order by id desc LIMIT #{start},5
+	</select>
+
+	<select id="getNews" resultType="Tab_news" parameterType="Map">
+		select
+		* from tab_news where id = #{id}
+	</select>
+
+
+</mapper>

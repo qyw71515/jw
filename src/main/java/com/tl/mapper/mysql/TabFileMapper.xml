@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tl.dao.ITabFileDAO">
+
+
+
+	<select id="getFile" resultType="TabFile" parameterType="Map">
+		select * from tab_file where 1=1
+		<if test="uuid != null">
+			uuid = {#uuid}
+		</if>
+	</select>
+
+	<select id="getNews" resultType="Tab_news" parameterType="Map">
+		select
+		* from tab_news where id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="Map">
+		insert into tab_file
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uuid != null">
+				uuid,
+			</if>
+			<if test="filename != null">
+				filename,
+			</if>
+			<if test="filepath != null">
+				filepath,
+			</if>
+			<if test="smallfilepath != null">
+				smallfilepath,
+			</if>
+			<if test="filesize != null">
+				filesize,
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uuid != null">
+				#{uuid,jdbcType=VARCHAR},
+			</if>
+			<if test="filename != null">
+				#{filename,jdbcType=VARCHAR},
+			</if>
+			<if test="filepath != null">
+				#{filepath,jdbcType=VARCHAR},
+			</if>
+			<if test="smallfilepath != null">
+				#{smallfilepath,jdbcType=VARCHAR},
+			</if>
+			<if test="filesize != null">
+				#{filesize,jdbcType=VARCHAR},
+			</if>
+
+		</trim>
+
+	</insert>
+</mapper>
