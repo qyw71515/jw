@@ -73,6 +73,28 @@ public class FileController {
 		return json.toString();
 	}
 
+	@RequestMapping(value = "/changeIcon", method = { RequestMethod.POST,
+			RequestMethod.GET }, produces = "application/json; charset=utf-8")
+	@ResponseBody
+	public String changeIcon(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
+		MultipartFile multipartFile = req.getFile("file");
+
+		String filepath = "C:\\file\\icon\\icon.jpg";
+		File desFile = new File(filepath);
+		if (!desFile.getParentFile().exists()) {
+			desFile.mkdirs();
+		}
+		multipartFile.transferTo(desFile);
+
+	
+		JSONObject json = new JSONObject();
+		json.put("code", 0);
+		return json.toString();
+	}
+	
+	
 	@RequestMapping(value = "/getImgList", method = { RequestMethod.POST,
 			RequestMethod.GET }, produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -111,6 +133,36 @@ public class FileController {
 		try {
 			String filename = (String) request.getParameter("filename");
 			File file = new File("C:\\file\\small\\" + filename);
+
+			FileImageInputStream input = null;
+			input = new FileImageInputStream(file);
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			byte[] buf = new byte[1024];
+			int numBytesRead = 0;
+			while ((numBytesRead = input.read(buf)) != -1) {
+				output.write(buf, 0, numBytesRead);
+			}
+			byte[] data = output.toByteArray();
+
+			return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(data);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	
+	@SuppressWarnings("resource")
+	@RequestMapping(value = "/showIcon")
+	public ResponseEntity<byte[]> showIcon(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+			File file = new File("C:\\file\\icon\\icon.jpg");
 
 			FileImageInputStream input = null;
 			input = new FileImageInputStream(file);

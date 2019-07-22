@@ -1,5 +1,7 @@
 package com.tl.model;
 
+import java.sql.Blob;
+
 public class Tab_news {
 	private String id;
 	private String title;
@@ -30,6 +32,10 @@ public class Tab_news {
 	public void setTime(String time) {
 		this.time = time;
 	}
+
+	
+
+	
 
 	public String getContent() {
 		return content;
